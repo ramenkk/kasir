@@ -3,30 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kasir</title>
-    <link rel="shortcut icon" type="image/x-icon" href="../../img/logo.png" />
+    <title>Dashboard manajemen menu</title>
+    <link rel="shortcut icon" type="image/x-icon" href="img/img/logo.png" />
+    <link href="../css/menu.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=REM">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-
-<body class="overflow-y-hidden">
+<body>
     <div>
         <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-        <div x-data="{ sidebarOpen: false }" class="flex h-screen bg-white-200">
-            <div :class="sidebarOpen ? 'block' : 'hidden'" @click="sidebarOpen = false" class="fixed inset-0 z-20 transition-opacity bg-white opacity-50 lg:hidden"></div>
+        <div x-data="{ sidebarOpen: false }" class="flex h-screen bg-gray-200">
+            <div :class="sidebarOpen ? 'block' : 'hidden'" @click="sidebarOpen = false" class="fixed inset-0 z-20 transition-opacity bg-black opacity-50 lg:hidden"></div>
         
-            <div :class="sidebarOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'" class="fixed inset-y-0 left-0 z-30 w-64 overflow-y-auto transition duration-300 transform bg-blue-900 lg:translate-x-0 lg:static lg:inset-0">
+            <div :class="sidebarOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'" class="fixed inset-y-0 left-0 z-30 w-64 overflow-y-auto transition duration-300 transform bg-gray-900 lg:translate-x-0 lg:static lg:inset-0">
                 <div class="flex items-center justify-center mt-8">
                     <div class="flex items-center">
-                        <img src="https://cdn-icons-png.flaticon.com/512/1946/1946429.png" class="w-10 h-10" alt="Admin Logo">
-                        <span class="mx-2 text-2xl font-semibold text-white">Dashboard Kasir</span>
-
-                        
+                        <img src="img/img/logo.png" class="w-10 h-10" alt="">
+                        <span class="mx-2 text-2xl font-semibold text-white">kasir</span>
                     </div>
                 </div>
         
                 <nav class="mt-10">
-                    <a class="flex items-center px-6 py-2 mt-4 text-gray-100 bg-gray-700 bg-opacity-25" href="#">
+                    <a class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="admin.html">
                         <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -37,13 +35,13 @@
                         <span class="mx-3">Dashboard</span>
                     </a>
 
-                    <a class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="index.html">
+                    <a class="flex items-center px-6 py-2 mt-4 text-gray-100 bg-gray-700 bg-opacity-25" href="pesanan.html">
                         <svg class="w-6 h-6" width="150px" height="150px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"      stroke="currentColor"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M7.549 10.078c.46.182.88.424 1.258.725.378.3.701.65.97 1.046a4.829 4.829 0 0 1 .848 2.714V15H9.75v-.438a3.894 3.894 0 0 0-1.155-2.782 4.054 4.054 0 0 0-1.251-.84 3.898 3.898 0 0 0-1.532-.315A3.894 3.894 0 0 0 3.03 11.78a4.06 4.06 0 0 0-.84 1.251c-.206.474-.31.985-.315 1.531V15H1v-.438a4.724 4.724 0 0 1 .848-2.713 4.918 4.918 0 0 1 2.229-1.77 2.994 2.994 0 0 1-.555-.493 3.156 3.156 0 0 1-.417-.602 2.942 2.942 0 0 1-.26-.683 3.345 3.345 0 0 1-.095-.739c0-.423.08-.82.24-1.189a3.095 3.095 0 0 1 1.626-1.627 3.067 3.067 0 0 1 2.386-.007 3.095 3.095 0 0 1 1.627 1.627 3.067 3.067 0 0 1 .157 1.928c-.06.237-.148.465-.266.684a3.506 3.506 0 0 1-.417.608c-.16.187-.345.35-.554.492zM5.812 9.75c.301 0 .584-.057.848-.17a2.194 2.194 0 0 0 1.162-1.163c.119-.269.178-.554.178-.854a2.138 2.138 0 0 0-.643-1.538 2.383 2.383 0 0 0-.697-.472 2.048 2.048 0 0 0-.848-.178c-.3 0-.583.057-.847.17a2.218 2.218 0 0 0-1.17 1.17c-.113.264-.17.547-.17.848 0 .3.057.583.17.847.115.264.27.497.466.697a2.168 2.168 0 0 0 1.552.643zM15 1v7h-1.75l-2.625 2.625V8H9.75v-.875h1.75v1.388l1.388-1.388h1.237v-5.25h-8.75v1.572a7.255 7.255 0 0 0-.438.069 2.62 2.62 0 0 0-.437.123V1H15z"></path></g></svg>
         
-                        <span class="mx-3">Keuangan</span>
+                        <span class="mx-3">Daftar Pesanan</span>
                     </a>
 
-                    <a class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="keuangan.html">
+                    <a class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="manajemen_pesanan.html">
                         <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -51,22 +49,19 @@
                             </path>
                         </svg>
         
-                        <span class="mx-3">pesanan </span>
-                    </a>    
-                  
-                    
-                <a class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="pesanan.html">
+                        <span class="mx-3">Manajemen pesanan</span>
                     </a>
-                    <a class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="kasir.html">
-                        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                d="M9 3L5 9h14l-4-6H9zM5 21h14M5 17h14M5 13h14M5 9h14">
+                    
+                    <a class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="manajemen_user.html">
+                        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 14v6m-3-3h6M6 10h2a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2zm10 0h2a2 2 0 002-2V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v2a2 2 0 002 2zM6 20h2a2 2 0 002-2v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2z">
                             </path>
                         </svg>
-                        <span class="mx-3">Kasir</span>
+        
+                        <span class="mx-3">Manajemen user</span>
                     </a>
-                    
-
                 </nav>
             </div>
             <div class="flex flex-col flex-1 overflow-hidden">
@@ -78,6 +73,20 @@
                                     stroke-linejoin="round"></path>
                             </svg>
                         </button>
+        
+                        <div class="relative mx-4 lg:mx-0">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                                <svg class="w-5 h-5 text-gray-500" viewBox="0 0 24 24" fill="none">
+                                    <path
+                                        d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    </path>
+                                </svg>
+                            </span>
+        
+                            <input class="w-32 pl-10 pr-4 rounded-md form-input sm:w-64 focus:border-indigo-600" type="text"
+                                placeholder="Search">
+                        </div>
                     </div>
         
                     <div class="flex items-center">
@@ -96,9 +105,46 @@
                                 class="fixed inset-0 z-10 w-full h-full" style="display: none;"></div>
         
                             <div x-show="notificationOpen"
-                                id="notificationDropdown"
                                 class="absolute right-0 z-10 mt-2 overflow-hidden bg-white rounded-lg shadow-xl w-80"
                                 style="width: 20rem; display: none;">
+                                <a href="#"
+                                    class="flex items-center px-4 py-3 -mx-2 text-gray-600 hover:text-white hover:bg-indigo-600">
+                                    <img class="object-cover w-8 h-8 mx-1 rounded-full"
+                                        src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=334&amp;q=80"
+                                        alt="avatar">
+                                    <p class="mx-2 text-sm">
+                                        <span class="font-bold" href="#">Sara Salah</span> replied on the <span
+                                            class="font-bold text-indigo-400" href="#">Upload Image</span> artical . 2m
+                                    </p>
+                                </a>
+                                <a href="#"
+                                    class="flex items-center px-4 py-3 -mx-2 text-gray-600 hover:text-white hover:bg-indigo-600">
+                                    <img class="object-cover w-8 h-8 mx-1 rounded-full"
+                                        src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=634&amp;q=80"
+                                        alt="avatar">
+                                    <p class="mx-2 text-sm">
+                                        <span class="font-bold" href="#">Slick Net</span> start following you . 45m
+                                    </p>
+                                </a>
+                                <a href="#"
+                                    class="flex items-center px-4 py-3 -mx-2 text-gray-600 hover:text-white hover:bg-indigo-600">
+                                    <img class="object-cover w-8 h-8 mx-1 rounded-full"
+                                        src="https://images.unsplash.com/photo-1450297350677-623de575f31c?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=334&amp;q=80"
+                                        alt="avatar">
+                                    <p class="mx-2 text-sm">
+                                        <span class="font-bold" href="#">Jane Doe</span> Like Your reply on <span
+                                            class="font-bold text-indigo-400" href="#">Test with TDD</span> artical . 1h
+                                    </p>
+                                </a>
+                                <a href="#"
+                                    class="flex items-center px-4 py-3 -mx-2 text-gray-600 hover:text-white hover:bg-indigo-600">
+                                    <img class="object-cover w-8 h-8 mx-1 rounded-full"
+                                        src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=398&amp;q=80"
+                                        alt="avatar">
+                                    <p class="mx-2 text-sm">
+                                        <span class="font-bold" href="#">Abigail Bennett</span> start following you . 3h
+                                    </p>
+                                </a>
                             </div>
                         </div>
         
@@ -106,7 +152,7 @@
                             <button @click="dropdownOpen = ! dropdownOpen"
                                 class="relative block w-8 h-8 overflow-hidden rounded-full shadow focus:outline-none">
                                 <img class="object-cover w-full h-full"
-                                    src="https://cdn-icons-png.flaticon.com/512/1946/1946429.png"
+                                      src="img/img/admin.png"
                                     alt="Your avatar">
                             </button>
         
@@ -114,7 +160,6 @@
                                 style="display: none;"></div>
         
                             <div x-show="dropdownOpen"
-                                id="notificationDropdown"
                                 class="absolute right-0 z-10 w-48 mt-2 overflow-hidden bg-white rounded-md shadow-xl"
                                 style="display: none;">
                                 <button id="logoutButton" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Logout</button>
@@ -124,84 +169,77 @@
                 </header>
                 <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
                     <div class="container px-6 py-8 mx-auto">
-                        <h3 class="text-3xl font-medium text-gray-700">Dashboard</h3>
-        
-                        <div class="flex flex-wrap items-center justify-between mt-4">
-                            <!-- Total Data Card -->
-                            <div class="w-full sm:w-1/2 lg:w-1/3 mb-4 sm:mb-2">
-                                <div class="flex items-center px-5 py-6 bg-white rounded-md shadow-sm">
-                                    <div class="p-3 bg-slate-600 bg-opacity-75 rounded-full">
-                                        <img src="../../img/marker.png" width="28" alt="">
-                                    </div>
-                                    <div class="mx-5">
-                                        <h4 id="totalLoc" class="text-2xl font-semibold text-gray-700">0</h4>
-                                        <div class="text-gray-500">Data Pesanan </div>
-                                    </div>
-                                </div>
-                            </div>
-                        
-                            <!-- Search Bar -->
-                            <form class="w-full sm:w-1/2 lg:w-1/3 mb-4 sm:mb-0">
-                                <label for="searchBar" class="sr-only">Search</label>
-                                <div class="relative">
-                                    <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
-                                        <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 10a7 7 0 1 0-7 7 7 7 0 0 0 7-7Z"/>
-                                        </svg>
-                                    </div>
-                                    <input type="search" id="searchBar" class="block w-full p-4 pl-12 pr-4 text-gray-900 rounded-lg shadow-sm transition focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Search anything..." required />
-                                </div>
-                            </form>
-                        </div>                                                                     
-                        <div class="flex flex-col mt-8">
-                            <h1 class="font-semibold pb-5 text-2xl text-gray-700">🔴 Tabel Pesanan</h1>
-                            <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-                                <div class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
-                                    <table id="dataDisplayTable" class="min-w-full">
-                                        <thead>
-                                            <tr>
-                                                <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                                 nama </th>
-                                                <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                                 nama menu</th>
-                                                <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                                 harga satuan</th>
-                                                <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                                 subtotal </th>
-                                                 <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                                 tanggal </th>
-                                                <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                                 pembayaran </th>
-                                                <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                                 catatan </th>
-                                                <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                                 status </th>
-                                                <th class="px-6 py-3 border-b border-gray-200 bg-gray-50">Action</th>
-                                            </tr>
-                                        </thead>
+                        <h3 class="text-3xl font-medium text-gray-700">DATA PESANAN</h3>
+                    <div class="mt-8">
+                    </div>
+                    <div class="flex flex-col mt-8">
+                        <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+                            <div class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
+                                <table id="dataDisplayTable" class="min-w-full">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th class="px-6 py-3 text-xs font-medium text-left text-gray-500 uppercase border-b border-gray-200">Nama Pelanggan</th>
+                                               <th class="px-6 py-3 text-xs font-medium text-left text-gray-500 uppercase border-b border-gray-200">No Meja</th>
+                                               <th class="px-6 py-3 text-xs font-medium text-left text-gray-500 uppercase border-b border-gray-200">Daftar Menu</th>
+                                               <th class="px-6 py-3 text-xs font-medium text-left text-gray-500 uppercase border-b border-gray-200">Total Harga</th>
+                                               <th class="px-6 py-3 text-xs font-medium text-left text-gray-500 uppercase border-b border-gray-200">Status Pesanan</th>
+                                               <th class="px-6 py-3 text-xs font-medium text-left text-gray-500 uppercase border-b border-gray-200">Tanggal Pesanan</th>
+                                               <th class="px-6 py-3 text-xs font-medium text-left text-gray-500 uppercase border-b border-gray-200">Pembayaran</th>
+                                               <th class="px-6 py-3 text-xs font-medium text-left text-gray-500 uppercase border-b border-gray-200">Catatan Pesanan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-white">
+                                        
+                                    </tbody>
+                                </table>    
+
+                               <!-- Hidden Update Form -->
+<!-- Hidden Update Form -->
+<!-- Overlay background -->
+<!-- Overlay for dimming the background when form is open -->
+<div id="overlay" class="overlay" style="display: none;"></div>
+<div id="updateFormContainer" class="update-form-container hidden">
+    <form id="updateForm">
+        <label for="namaMenu">Nama Menu</label>
+        <input type="text" id="namaMenu" name="namaMenu" required>
+
+        <label for="harga">Harga</label>
+        <input type="number" id="harga" name="harga" required>
+
+        <label for="deskripsi">Deskripsi</label>
+        <input type="text" id="deskripsi" name="deskripsi" required>
+
+        <label for="gambar">Gambar URL</label>
+        <input type="text" id="gambar" name="gambar" required>
+
+        <label for="kategori">Kategori</label>
+        <input type="text" id="kategori" name="kategori" required>
+
+        <label for="available">Available</label>
+        <select id="available" name="available" required>
+            <option value="true">Available</option>
+            <option value="false">Not Available</option>
+        </select>
+
+        <button type="submit">Update</button>
+    </form>
+</div>
+
+
                                     
-                                        <tbody class="bg-white">
-                                            <!-- Data from JavaScript will populate here -->
-                                        </tbody>
-                                    </table>                                    
+                                    
+                                    
+                                    
+                                    
                                 </div>
                             </div>
                         </div>
-                                        
-                                            <tbody class="bg-white">
-                                                <!-- Data from JavaScript will populate here -->
-                                            </tbody>
-                                        </table>                                    
-                                    </div>
-                                </div>
-                            </div>
-                        </div>                       
                     </div>
                 </main>
             </div>
         </div>
     </div>
-    <script type="module" src="admin.js"></script>
+    <script src="menu.js"></script>
     <script type="module" src="logout.js"></script>
     <script type="module" src="dashboard.js"></script>
 </body>
