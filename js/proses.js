@@ -28,11 +28,10 @@ document.addEventListener('DOMContentLoaded', function () {
                         <td class="px-6 py-4 text-sm text-gray-500">${pesanan.total_harga}</td>
                         <td class="px-6 py-4 text-sm text-gray-500">${pesanan.status_pesanan}</td>
                         <td class="px-6 py-4 text-sm text-gray-500">${tanggalPesanan.toLocaleDateString()}</td>
-                        <td class="px-6 py-4 text-sm text-gray-500">${pesanan.pembayaran}</td>
                         <td class="px-6 py-4 text-sm text-gray-500">${pesanan.catatan_pesanan}</td>
                         <td class="px-6 py-4 text-sm text-gray-500">
                             <select class="status-select" data-id="${pesanan.id}">
-                                <option value="">Pilih</option>
+                                <option value="">Update</option>
                                 <option value="diproses">Diproses</option>
                                 <option value="selesai">Selesai</option>
                             </select>
