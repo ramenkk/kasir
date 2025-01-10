@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>manajemen pesanan</title>
+    <title>Tambah Data | Parkir Gratis</title>
     <link href="https://cdn.skypack.dev/ol/ol.css" rel="stylesheet">
     <link rel="icon" href="assets/img/logo.png" type="image/x-icon">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"></script>
@@ -14,8 +14,7 @@
     </style>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="overflow-y-hidden">
-    <div hidden id="isi"></div>
+<body>
     <div>
         <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
         <div x-data="{ sidebarOpen: false }" class="flex h-screen bg-gray-200">
@@ -25,7 +24,7 @@
                 <div class="flex items-center justify-center mt-8">
                     <div class="flex items-center">
                         <img src="img/img/logo.png" class="w-10 h-10" alt="">
-                        <span class="mx-2 text-2xl font-semibold text-white">Kasir</span>
+                        <span class="mx-2 text-2xl font-semibold text-white">Dashboard</span>
                     </div>
                 </div>
 
@@ -47,7 +46,7 @@
                         <span class="mx-3">Daftar Pesanan</span>
                     </a>
 
-                    <a class="flex items-center px-6 py-2 mt-4 text-gray-100 bg-gray-700 bg-opacity-25">
+                    <a class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="pesanan_baru.html">
                         <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -58,7 +57,7 @@
                         <span class="mx-3">Pesanan Baru</span>
                     </a>
 
-                    <a class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="proses.html">
+                    <a class="flex items-center px-6 py-2 mt-4 text-gray-100 bg-gray-700 bg-opacity-25">
                         <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -79,6 +78,7 @@
         
                         <span class="mx-3">History</span>
                     </a>
+
                 </nav>
             </div>
             <div class="flex flex-col flex-1 overflow-hidden">
@@ -118,8 +118,8 @@
                             <button @click="dropdownOpen = ! dropdownOpen"
                                 class="relative block w-8 h-8 overflow-hidden rounded-full shadow focus:outline-none">
                                 <img class="object-cover w-full h-full"
-                             src="img/img/admin.png"
-                                    alt="Your avatar">
+                            src="img/img/admin.png"
+                                alt="Your avatar">
                             </button>
         
                             <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 z-10 w-full h-full"
@@ -134,46 +134,44 @@
                         </div>
                     </div>
                 </header>
-            </header>
-            <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
-                <div class="container px-6 py-8 mx-auto">
-                    <h3 class="text-3xl font-medium text-gray-700">DATA PESANAN BARU</h3>
-                    <div class="mt-8">
-                    </div>
-                    <div class="flex flex-col mt-8">
-                        <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-                            <div class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
-                                <table id="dataDisplayTable" class="min-w-full">
-                                    <thead class="bg-gray-50">
-                                        <tr>
-                                            <th class="px-6 py-3 text-xs font-medium text-left text-gray-500 uppercase border-b border-gray-200">Nama Pelanggan</th>
-                                               <th class="px-6 py-3 text-xs font-medium text-left text-gray-500 uppercase border-b border-gray-200">No Meja</th>
-                                               <th class="px-6 py-3 text-xs font-medium text-left text-gray-500 uppercase border-b border-gray-200">Daftar Menu</th>
-                                               <th class="px-6 py-3 text-xs font-medium text-left text-gray-500 uppercase border-b border-gray-200">Total Harga</th>
-                                               <th class="px-6 py-3 text-xs font-medium text-left text-gray-500 uppercase border-b border-gray-200">Status Pesanan</th>
-                                               <th class="px-6 py-3 text-xs font-medium text-left text-gray-500 uppercase border-b border-gray-200">Tanggal Pesanan</th>
-                                               <th class="px-6 py-3 text-xs font-medium text-left text-gray-500 uppercase border-b border-gray-200">Pembayaran</th>
-                                               <th class="px-6 py-3 text-xs font-medium text-left text-gray-500 uppercase border-b border-gray-200">Catatan Pesanan</th>
-                                               <th class="px-6 py-3 text-xs font-medium text-left text-gray-500 uppercase border-b border-gray-200">AKSI</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="bg-white">
+                <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
+                    <div class="container px-6 py-8 mx-auto">
+                        <h3 class="text-3xl font-medium text-gray-700">DATA PESANAN BARU</h3>
+                        <div class="mt-8">
+                        </div>
+                        <div class="flex flex-col mt-8">
+                            <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+                                <div class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
+                                    <table id="dataDisplayTable" class="min-w-full">
+                                        <thead class="bg-gray-50">
+                                            <tr>
+                                                <th class="px-6 py-3 text-xs font-medium text-left text-gray-500 uppercase border-b border-gray-200">Nama Pelanggan</th>
+                                                   <th class="px-6 py-3 text-xs font-medium text-left text-gray-500 uppercase border-b border-gray-200">No Meja</th>
+                                                   <th class="px-6 py-3 text-xs font-medium text-left text-gray-500 uppercase border-b border-gray-200">Daftar Menu</th>
+                                                   <th class="px-6 py-3 text-xs font-medium text-left text-gray-500 uppercase border-b border-gray-200">Total Harga</th>
+                                                   <th class="px-6 py-3 text-xs font-medium text-left text-gray-500 uppercase border-b border-gray-200">Status Pesanan</th>
+                                                   <th class="px-6 py-3 text-xs font-medium text-left text-gray-500 uppercase border-b border-gray-200">Tanggal Pesanan</th>
+                                                   <th class="px-6 py-3 text-xs font-medium text-left text-gray-500 uppercase border-b border-gray-200">Pembayaran</th>
+                                                   <th class="px-6 py-3 text-xs font-medium text-left text-gray-500 uppercase border-b border-gray-200">Catatan Pesanan</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="bg-white">
+                                            
+                                        </tbody>
+                                    </table>  
                                         
-                                    </tbody>
-                                </table>  
-                                    
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </main>
+                    </main>
+                </div>
             </div>
         </div>
-    </div>
-    <!-- <script type ="module" src="index.js"></script> -->
-  
-    <script type="module" src="js/pesanan_baru.js"></script>>
-
-    <script type="module" src="logout_wa.js"></script>
-</body>
-</html>
+        <!-- <script type ="module" src="index.js"></script> -->
+      
+        <script type="module" src="js/proses.js"></script>>
+    
+        <script type="module" src="logout_wa.js"></script>
+    </body>
+    </html>

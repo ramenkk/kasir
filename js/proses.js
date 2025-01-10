@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const url = 'https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/data/bystatus?status=baru';
+    const url = 'https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/data/bystatus?status=diproses';
 
     // Fungsi untuk mengambil data pesanan dan menampilkan di tabel
     function fetchData() {
