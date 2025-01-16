@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // URL API dengan parameter status=baru
+    // URL API dengan parameter status=selesai
     const url = 'https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/data/bystatus?status=selesai';
 
     // Fungsi untuk mengambil dan menampilkan data pesanan
@@ -34,6 +34,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         <td class="px-6 py-4 text-sm text-gray-500">${new Date(pesanan.tanggal_pesanan).toLocaleDateString()}</td>
                         <td class="px-6 py-4 text-sm text-gray-500">${pesanan.pembayaran}</td>
                         <td class="px-6 py-4 text-sm text-gray-500">${pesanan.catatan_pesanan}</td>
+                        <td class="px-6 py-4 text-sm text-gray-500">
+                            <button class="printBtn bg-blue-500 text-white rounded px-3 py-1 hover:bg-blue-600 transition" data-id="${pesanan.id}">
+                                Cetak
+                            </button>
+                        </td>
                     `;
                     tableBody.appendChild(row);
                 });
@@ -46,4 +51,5 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Memanggil fungsi untuk mengambil data saat halaman dimuat
     fetchData();
+
 });
