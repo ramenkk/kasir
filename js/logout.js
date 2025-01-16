@@ -17,7 +17,7 @@ async function logout() {
             footer: "automatically directed to login menu.",
             timer: 2000
         });setTimeout(() => {
-            window.location.href = '../login/login.html';
+            window.location.href = 'https://ramenkk.github.io/login/login.html';
         }, 2000);
     }
 
