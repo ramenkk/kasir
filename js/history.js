@@ -42,6 +42,16 @@ document.addEventListener('DOMContentLoaded', function() {
                     `;
                     tableBody.appendChild(row);
                 });
+
+                // Menambahkan event listener untuk tombol cetak
+                const printButtons = document.querySelectorAll('.printBtn');
+                printButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const pesananId = this.dataset.id;
+                        const pesanan = data.find(item => item.id === pesananId);
+                        printReceipt(pesanan);
+                    });
+                });
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -52,4 +62,21 @@ document.addEventListener('DOMContentLoaded', function() {
     // Memanggil fungsi untuk mengambil data saat halaman dimuat
     fetchData();
 
+    // Fungsi untuk mencetak struk pesanan
+    function printReceipt(pesanan) {
+        const strukWindow = window.open('', '', 'height=600,width=800');
+        strukWindow.document.write('<html><head><title>Struk Pesanan</title></head><body>');
+        strukWindow.document.write('<h1>Struk Pesanan</h1>');
+        strukWindow.document.write('<p><strong>Nama Pelanggan:</strong> ' + pesanan.nama_pelanggan + '</p>');
+        strukWindow.document.write('<p><strong>No Meja:</strong> ' + pesanan.nomor_meja + '</p>');
+        strukWindow.document.write('<p><strong>Daftar Menu:</strong> ' + pesanan.daftar_menu.map(item => item.nama_menu).join(', ') + '</p>');
+        strukWindow.document.write('<p><strong>Total Harga:</strong> Rp ' + pesanan.total_harga.toFixed(2) + '</p>');
+        strukWindow.document.write('<p><strong>Status Pesanan:</strong> ' + pesanan.status_pesanan + '</p>');
+        strukWindow.document.write('<p><strong>Tanggal Pesanan:</strong> ' + new Date(pesanan.tanggal_pesanan).toLocaleString() + '</p>');
+        strukWindow.document.write('<p><strong>Pembayaran:</strong> ' + pesanan.pembayaran + '</p>');
+        strukWindow.document.write('<p><strong>Catatan Pesanan:</strong> ' + pesanan.catatan_pesanan + '</p>');
+        strukWindow.document.write('</body></html>');
+        strukWindow.document.close();
+        strukWindow.print();
+    }
 });
