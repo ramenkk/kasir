@@ -1,3 +1,8 @@
+import Swal from "https://cdn.jsdelivr.net/npm/sweetalert2@11/src/sweetalert2.js";
+import {addCSS} from "https://cdn.jsdelivr.net/gh/jscroot/lib@0.0.9/element.js";
+
+addCSS("https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.css");
+
 document.addEventListener('DOMContentLoaded', function () {
     const url = 'https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/data/bystatus?status=diproses';
 
@@ -51,7 +56,13 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Terjadi kesalahan saat mengambil data');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Kesalahan',
+                    text: 'Terjadi kesalahan saat mengambil data.',
+                    timer: 2000,
+                    showConfirmButton: false,
+                });
             });
     }
 
@@ -59,33 +70,60 @@ document.addEventListener('DOMContentLoaded', function () {
     function handleStatusChange(pesananId, newStatus) {
         if (!newStatus) return;
 
-        if (confirm(`Apakah Anda yakin ingin mengubah status menjadi "${newStatus}"?`)) {
-            fetch(`https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/update/status?id=${pesananId}`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ status_pesanan: newStatus }),
-            })
-            .then(response => response.text())
-            .then(text => {
-                console.log('Respons mentah dari server:', text); // Debug
-                try {
-                    // Menghilangkan null atau spasi ekstra
-                    const jsonText = text.trim().replace(/null$/, '');
-                    const data = JSON.parse(jsonText);
-                    alert(data.message || 'Status pesanan berhasil diperbarui');
-                } catch (error) {
-                    console.warn('Error parsing JSON:', text);
-                    alert('Status pesanan berhasil diperbarui (respons tidak sepenuhnya valid)');
-                }
-                fetchData(); // Refresh data
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Terjadi kesalahan saat memperbarui status');
-            });
-        }
+        Swal.fire({
+            title: 'Konfirmasi',
+            text: `Apakah Anda yakin ingin mengubah status menjadi "${newStatus}"?`,
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Ya, Ubah',
+            cancelButtonText: 'Batal',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/update/status?id=${pesananId}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ status_pesanan: newStatus }),
+                })
+                .then(response => response.text())
+                .then(text => {
+                    console.log('Respons mentah dari server:', text); // Debug
+                    try {
+                        // Menghilangkan null atau spasi ekstra
+                        const jsonText = text.trim().replace(/null$/, '');
+                        const data = JSON.parse(jsonText);
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Berhasil',
+                            text: data.message || 'Status pesanan berhasil diperbarui.',
+                            timer: 2000,
+                            showConfirmButton: false,
+                        });
+                    } catch (error) {
+                        console.warn('Error parsing JSON:', text);
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Berhasil',
+                            text: 'Status pesanan berhasil diperbarui (respons tidak sepenuhnya valid).',
+                            timer: 2000,
+                            showConfirmButton: false,
+                        });
+                    }
+                    fetchData(); // Refresh data
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Kesalahan',
+                        text: 'Terjadi kesalahan saat memperbarui status.',
+                        timer: 2000,
+                        showConfirmButton: false,
+                    });
+                });
+            }
+        });
     }
 
     // Memanggil fetchData saat halaman selesai dimuat
