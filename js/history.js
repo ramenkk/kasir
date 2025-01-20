@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
-  
+
     const url = 'https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/data/bystatus?status=selesai';
+    let allOrders = [];  // Untuk menyimpan data pesanan yang sudah dimuat
 
     function fetchData() {
         fetch(url)
@@ -11,46 +12,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 return response.json();
             })
             .then(data => {
-         
-                const tableBody = document.querySelector('#dataDisplayTable tbody');
-                tableBody.innerHTML = ''; 
-                
-                data.forEach(pesanan => {
-                    const row = document.createElement('tr');
-                    
-          
-                    const tanggalPesanan = new Date(pesanan.tanggal_pesanan.$date || pesanan.tanggal_pesanan);
-                    
-                    // Membuat kolom-kolom dalam tabel
-                    row.innerHTML = `
-                        <td class="px-6 py-4 text-sm text-gray-500">${pesanan.nama_pelanggan}</td>
-                        <td class="px-6 py-4 text-sm text-gray-500">${pesanan.nomor_meja}</td>
-                        <td class="px-6 py-4 text-sm text-gray-500">
-                            ${pesanan.daftar_menu.map(item => item.nama_menu).join(', ')}
-                        </td>
-                        <td class="px-6 py-4 text-sm text-gray-500">${pesanan.total_harga}</td>
-                        <td class="px-6 py-4 text-sm text-gray-500">${pesanan.status_pesanan}</td>
-                        <td class="px-6 py-4 text-sm text-gray-500">${new Date(pesanan.tanggal_pesanan).toLocaleDateString()}</td>
-                        <td class="px-6 py-4 text-sm text-gray-500">${pesanan.pembayaran}</td>
-                        <td class="px-6 py-4 text-sm text-gray-500">${pesanan.catatan_pesanan}</td>
-                        <td class="px-6 py-4 text-sm text-gray-500">
-                            <button class="printBtn bg-blue-500 text-white rounded px-3 py-1 hover:bg-blue-600 transition" data-id="${pesanan.id}">
-                                Cetak
-                            </button>
-                        </td>
-                    `;
-                    tableBody.appendChild(row);
-                });
-
-                // Menambahkan event listener untuk tombol cetak
-                const printButtons = document.querySelectorAll('.printBtn');
-                printButtons.forEach(button => {
-                    button.addEventListener('click', function() {
-                        const pesananId = this.dataset.id;
-                        const pesanan = data.find(item => item.id === pesananId);
-                        printReceipt(pesanan);
-                    });
-                });
+                allOrders = data; 
+                renderTableData(data); 
+                addPrintButtons(); 
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -58,8 +22,45 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
 
-    // Memanggil fungsi untuk mengambil data saat halaman dimuat
-    fetchData();
+    // Fungsi untuk merender data ke dalam tabel
+    function renderTableData(data) {
+        const tableBody = document.querySelector('#dataDisplayTable tbody');
+        tableBody.innerHTML = ''; // Kosongkan tabel
+
+        data.forEach(pesanan => {
+            const row = document.createElement('tr');
+            const tanggalPesanan = new Date(pesanan.tanggal_pesanan.$date || pesanan.tanggal_pesanan);
+
+            row.innerHTML = `
+                <td class="px-6 py-4 text-sm text-gray-500">${pesanan.nama_pelanggan}</td>
+                <td class="px-6 py-4 text-sm text-gray-500">${pesanan.nomor_meja}</td>
+                <td class="px-6 py-4 text-sm text-gray-500">${pesanan.daftar_menu.map(item => item.nama_menu).join(', ')}</td>
+                <td class="px-6 py-4 text-sm text-gray-500">${pesanan.total_harga}</td>
+                <td class="px-6 py-4 text-sm text-gray-500">${pesanan.status_pesanan}</td>
+                <td class="px-6 py-4 text-sm text-gray-500">${new Date(pesanan.tanggal_pesanan).toLocaleDateString()}</td>
+                <td class="px-6 py-4 text-sm text-gray-500">${pesanan.pembayaran}</td>
+                <td class="px-6 py-4 text-sm text-gray-500">${pesanan.catatan_pesanan}</td>
+                <td class="px-6 py-4 text-sm text-gray-500">
+                    <button class="printBtn bg-blue-500 text-white rounded px-3 py-1 hover:bg-blue-600 transition" data-id="${pesanan.id}">
+                        Cetak
+                    </button>
+                </td>
+            `;
+            tableBody.appendChild(row);
+        });
+    }
+
+    // Fungsi untuk menambahkan event listener pada tombol cetak
+    function addPrintButtons() {
+        const printButtons = document.querySelectorAll('.printBtn');
+        printButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const pesananId = this.dataset.id;
+                const pesanan = allOrders.find(item => item.id === pesananId);
+                printReceipt(pesanan);
+            });
+        });
+    }
 
     // Fungsi untuk mencetak struk pesanan
     function printReceipt(pesanan) {
@@ -78,4 +79,25 @@ document.addEventListener('DOMContentLoaded', function() {
         strukWindow.document.close();
         strukWindow.print();
     }
+
+    function filterData() {
+        const query = document.getElementById('searchInput').value.toLowerCase();
+        
+        // Filter data berdasarkan nama_pelanggan, nomor_meja, atau status_pesanan
+        const filteredOrders = allOrders.filter(order => {
+            return (
+                order.nama_pelanggan.toLowerCase().includes(query) ||
+                order.nomor_meja.toString().includes(query) ||
+                order.status_pesanan.toLowerCase().includes(query)
+            );
+        });
+
+        // Render data yang sudah difilter
+        renderTableData(filteredOrders);
+    }
+
+    fetchData();
+
+    // Menambahkan event listener untuk filter
+    document.getElementById('searchInput').addEventListener('keyup', filterData);
 });
