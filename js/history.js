@@ -1,8 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // URL API dengan parameter status=selesai
+  
     const url = 'https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/data/bystatus?status=selesai';
 
-    // Fungsi untuk mengambil dan menampilkan data pesanan
     function fetchData() {
         fetch(url)
             .then(response => {
@@ -12,14 +11,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 return response.json();
             })
             .then(data => {
-                // Menampilkan data pesanan ke dalam tabel
+         
                 const tableBody = document.querySelector('#dataDisplayTable tbody');
-                tableBody.innerHTML = ''; // Clear the table before adding new rows
+                tableBody.innerHTML = ''; 
                 
                 data.forEach(pesanan => {
                     const row = document.createElement('tr');
                     
-                    // Memastikan format tanggal yang valid
+          
                     const tanggalPesanan = new Date(pesanan.tanggal_pesanan.$date || pesanan.tanggal_pesanan);
                     
                     // Membuat kolom-kolom dalam tabel
