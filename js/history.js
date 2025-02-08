@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
             row.innerHTML = `
                 <td class="px-6 py-4 text-sm text-gray-500">${pesanan.nama_pelanggan}</td>
                 <td class="px-6 py-4 text-sm text-gray-500">${pesanan.nomor_meja}</td>
-                <td class="px-6 py-4 text-sm text-gray-500">${pesanan.daftar_menu.map(item => item.nama_menu).join(', ')}</td>
+                <td class="px-6 py-4 text-sm text-gray-500">${pesanan.daftar_menu.map(item => `${item.nama_menu} (x${item.jumlah})`).join(', ')}</td>
                 <td class="px-6 py-4 text-sm text-gray-500">${pesanan.total_harga}</td>
                 <td class="px-6 py-4 text-sm text-gray-500">${pesanan.status_pesanan}</td>
                 <td class="px-6 py-4 text-sm text-gray-500">${new Date(pesanan.tanggal_pesanan).toLocaleDateString()}</td>
@@ -94,10 +94,43 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Render data yang sudah difilter
         renderTableData(filteredOrders);
+        addPrintButtons();
+    }
+
+    // Fungsi untuk filter mingguan
+    function filterWeekly() {
+        const now = new Date();
+        const startOfWeek = new Date(now.setDate(now.getDate() - now.getDay()));
+        const endOfWeek = new Date(now.setDate(now.getDate() - now.getDay() + 6));
+    
+        const filteredOrders = allOrders.filter(order => {
+            const orderDate = new Date(order.tanggal_pesanan.$date || order.tanggal_pesanan);
+            return orderDate >= startOfWeek && orderDate <= endOfWeek;
+        });
+    
+        console.log('Filtered Weekly Orders:', filteredOrders); // Debugging
+        renderTableData(filteredOrders);
+        addPrintButtons();
+    }
+    
+    function filterMonthly() {
+        const now = new Date();
+        const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+        const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+    
+        const filteredOrders = allOrders.filter(order => {
+            const orderDate = new Date(order.tanggal_pesanan.$date || order.tanggal_pesanan);
+            return orderDate >= startOfMonth && orderDate <= endOfMonth;
+        });
+    
+        renderTableData(filteredOrders);
+        addPrintButtons(); // Pastikan ini dipanggil setelah renderTableData
     }
 
     fetchData();
 
     // Menambahkan event listener untuk filter
     document.getElementById('searchInput').addEventListener('keyup', filterData);
+    document.getElementById('filterWeekly').addEventListener('click', filterWeekly);
+    document.getElementById('filterMonthly').addEventListener('click', filterMonthly);
 });
