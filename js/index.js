@@ -39,66 +39,68 @@ async function fetchOrderStats() {
 
 fetchOrderStats();
 
+document.addEventListener("DOMContentLoaded", function () {
+    const notificationButton = document.querySelector('[x-data] button');
+    const notification = document.querySelector('#notification');
+    const notificationCount = document.querySelector('#notificationCount'); // Ambil elemen jumlah notifikasi dari DOM
 
-    document.addEventListener("DOMContentLoaded", () => {
-        checkNewOrders(); // Cek saat halaman pertama kali dimuat
-        setInterval(checkNewOrders, 5000); // Cek setiap 5 detik
+    // Fungsi untuk memperbarui UI notifikasi
+    function updateNotificationUI(orders) {
+        notification.innerHTML = ''; // Kosongkan daftar notifikasi
+        if (orders.length > 0) {
+            notificationCount.textContent = orders.length;
+            notificationCount.style.display = 'block'; // Tampilkan jumlah notifikasi
+
+            orders.forEach(order => {
+                const orderItem = document.createElement('a');
+                orderItem.href = '#';
+                orderItem.classList.add(
+                    'flex', 'items-center', 'px-4', 'py-3', '-mx-2', 
+                    'text-gray-600', 'hover:text-white', 'hover:bg-indigo-600'
+                );
+                orderItem.innerHTML = `
+                    <img class="object-cover w-8 h-8 mx-1 rounded-full"
+                        src="https://cdn-icons-png.flaticon.com/512/456/456212.png"
+                        alt="avatar">
+                    <p class="mx-2 text-sm">
+                        <span class="font-bold">${order.nama_pelanggan}</span> 
+                        memesan <span class="font-bold text-indigo-400">${order.total_harga}</span>
+                    </p>
+                `;
+                notification.appendChild(orderItem);
+            });
+        } else {
+            notificationCount.style.display = 'none'; // Sembunyikan jika tidak ada notifikasi baru
+        }
+    }
+
+    // Fungsi untuk mengambil pesanan baru
+    function checkNewOrders() {
+        fetch('https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/data/bystatus?status=baru')
+            .then(response => response.json())
+            .then(data => {
+                if (Array.isArray(data)) {
+                    updateNotificationUI(data);
+                } else {
+                    console.error("Format data tidak valid:", data);
+                }
+            })
+            .catch(error => console.error("Gagal mengambil data pesanan:", error));
+    }
+
+    // Panggil fungsi pertama kali dan set interval untuk memeriksa pesanan baru setiap 5 detik
+    checkNewOrders();
+    setInterval(checkNewOrders, 5000);
+
+    // Toggle notifikasi dropdown
+    notificationButton.addEventListener("click", function () {
+        notification.style.display = (notification.style.display === 'none' || notification.style.display === '') ? 'block' : 'none';
     });
 
-    async function checkNewOrders() {
-        try {
-            const response = await fetch("https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/data/bystatus?status=baru");
-            if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-            
-            const orders = await response.json();
-            updateNotificationUI(orders);
-        } catch (error) {
-            console.error("Gagal mengambil data pesanan:", error);
+    // Tutup notifikasi jika klik di luar area
+    document.addEventListener("click", function (event) {
+        if (!notificationButton.contains(event.target) && !notification.contains(event.target)) {
+            notification.style.display = 'none';
         }
-    }
-
-    function updateNotificationUI(orders) {
-        const notificationIcon = document.getElementById("notificationIcon");
-        const notificationDropdown = document.getElementById("notificationDropdown");
-
-        if (orders.length > 0) {
-            notificationIcon.classList.add("text-red-500"); // Ubah warna lonceng jadi merah
-            notificationIcon.innerHTML = `<span class="absolute top-0 right-0 block h-3 w-3 bg-red-600 rounded-full"></span>`;
-
-            // Tampilkan daftar pesanan baru
-            notificationDropdown.innerHTML = `
-                <div class="p-4 border-b">
-                    <h3 class="text-lg font-semibold text-gray-700">Pesanan Baru (${orders.length})</h3>
-                </div>
-                <ul class="max-h-60 overflow-y-auto">
-                    ${orders.map(order => `
-                        <li class="p-4 border-b">
-                            <p class="font-medium">${order.nama_pelanggan} (Meja ${order.nomor_meja})</p>
-                            <p class="text-sm text-gray-500">${order.total_harga.toLocaleString()} IDR</p>
-                        </li>
-                    `).join("")}
-                </ul>
-            `;
-
-            // Notifikasi suara (opsional)
-            const audio = new Audio("https://www.myinstants.com/media/sounds/notification.mp3");
-            audio.play();
-
-            // Notifikasi Browser (opsional)
-            if (Notification.permission === "granted") {
-                new Notification("Pesanan Baru!", {
-                    body: `Ada ${orders.length} pesanan baru!`,
-                    icon: "https://yourwebsite.com/icon.png"
-                });
-            }
-        } else {
-            notificationIcon.classList.remove("text-red-500");
-            notificationIcon.innerHTML = "";
-            notificationDropdown.innerHTML = `<div class="p-4 text-gray-500">Tidak ada pesanan baru</div>`;
-        }
-    }
-
-    // Minta izin notifikasi browser
-    if (Notification.permission !== "granted") {
-        Notification.requestPermission();
-    }
+    });
+});

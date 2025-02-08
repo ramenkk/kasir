@@ -131,3 +131,70 @@ document.addEventListener('DOMContentLoaded', function () {
     // Memanggil fetchData saat halaman selesai dimuat
     fetchData();
 });
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const notificationButton = document.querySelector('[x-data] button');
+    const notification = document.querySelector('#notification');
+    const notificationCount = document.querySelector('#notificationCount'); // Ambil elemen jumlah notifikasi dari DOM
+
+    // Fungsi untuk memperbarui UI notifikasi
+    function updateNotificationUI(orders) {
+        notification.innerHTML = ''; // Kosongkan daftar notifikasi
+        if (orders.length > 0) {
+            notificationCount.textContent = orders.length;
+            notificationCount.style.display = 'block'; // Tampilkan jumlah notifikasi
+
+            orders.forEach(order => {
+                const orderItem = document.createElement('a');
+                orderItem.href = '#';
+                orderItem.classList.add(
+                    'flex', 'items-center', 'px-4', 'py-3', '-mx-2', 
+                    'text-gray-600', 'hover:text-white', 'hover:bg-indigo-600'
+                );
+                orderItem.innerHTML = `
+                    <img class="object-cover w-8 h-8 mx-1 rounded-full"
+                        src="https://cdn-icons-png.flaticon.com/512/456/456212.png"
+                        alt="avatar">
+                    <p class="mx-2 text-sm">
+                        <span class="font-bold">${order.nama_pelanggan}</span> 
+                        memesan <span class="font-bold text-indigo-400">${order.total_harga}</span>
+                    </p>
+                `;
+                notification.appendChild(orderItem);
+            });
+        } else {
+            notificationCount.style.display = 'none'; // Sembunyikan jika tidak ada notifikasi baru
+        }
+    }
+
+    // Fungsi untuk mengambil pesanan baru
+    function checkNewOrders() {
+        fetch('https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/data/bystatus?status=baru')
+            .then(response => response.json())
+            .then(data => {
+                if (Array.isArray(data)) {
+                    updateNotificationUI(data);
+                } else {
+                    console.error("Format data tidak valid:", data);
+                }
+            })
+            .catch(error => console.error("Gagal mengambil data pesanan:", error));
+    }
+
+    // Panggil fungsi pertama kali dan set interval untuk memeriksa pesanan baru setiap 5 detik
+    checkNewOrders();
+    setInterval(checkNewOrders, 5000);
+
+    // Toggle notifikasi dropdown
+    notificationButton.addEventListener("click", function () {
+        notification.style.display = (notification.style.display === 'none' || notification.style.display === '') ? 'block' : 'none';
+    });
+
+    // Tutup notifikasi jika klik di luar area
+    document.addEventListener("click", function (event) {
+        if (!notificationButton.contains(event.target) && !notification.contains(event.target)) {
+            notification.style.display = 'none';
+        }
+    });
+});
