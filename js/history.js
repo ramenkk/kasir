@@ -248,7 +248,7 @@ function printAllOrders() {
     fetchData();
 
 
-    // Fungsi untuk membuka modal filter
+ // Fungsi untuk membuka modal filter
 document.getElementById('openFilterModal').addEventListener('click', function() {
     document.getElementById('filterModal').classList.add('active');
 });

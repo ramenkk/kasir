@@ -170,6 +170,7 @@
                                 <div class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
                                     <div class="flex space-x-4 mb-4">
                                         <!-- Tombol untuk membuka modal filter -->
+<!-- Tombol untuk membuka modal filter -->
 <button id="openFilterModal" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
     Filter
 </button>
@@ -181,23 +182,30 @@
         
         <!-- Opsi Filter -->
         <div class="space-y-4">
-            <button id="filterWeekly" class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
-                Filter Mingguan
+            <!-- Filter Mingguan -->
+            <button id="filterWeekly" class="w-full flex items-center p-3 bg-gray-100 rounded-lg hover:bg-gray-200 transition">
+                <span class="text-gray-700">Filter Mingguan</span>
             </button>
-            <button id="filterMonthly" class="w-full bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition">
-                Filter Bulanan
+
+            <!-- Filter Bulanan -->
+            <button id="filterMonthly" class="w-full flex items-center p-3 bg-gray-100 rounded-lg hover:bg-gray-200 transition">
+                <span class="text-gray-700">Filter Bulanan</span>
             </button>
-            <button id="sortAscending" class="w-full bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition">
-                Urutkan Terlama
+
+            <!-- Urutkan Terlama -->
+            <button id="sortAscending" class="w-full flex items-center p-3 bg-gray-100 rounded-lg hover:bg-gray-200 transition">
+                <span class="text-gray-700">Urutkan Terlama</span>
             </button>
-            <button id="sortDescending" class="w-full bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 transition">
-                Urutkan Terbaru
+
+            <!-- Urutkan Terbaru -->
+            <button id="sortDescending" class="w-full flex items-center p-3 bg-gray-100 rounded-lg hover:bg-gray-200 transition">
+                <span class="text-gray-700">Urutkan Terbaru</span>
             </button>
         </div>
 
-        <!-- Tombol Tutup Modal -->
-        <button id="closeFilterModal" class="mt-6 w-full bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition">
-            Tutup
+        <!-- Tombol Terapkan -->
+        <button id="closeFilterModal" class="mt-6 w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+            BACK
         </button>
     </div>
 </div>
@@ -249,7 +257,7 @@
         <!-- <script type ="module" src="index.js"></script> -->
       
         <script type="module" src="js/history.js"></script>
-        <script type="module" src="js/dashboard.js"></script>
+        <script type="module" src="js/ashboard.js"></script>
         <script type="module" src="js/logout.js"></script>
     </body>
     </html>

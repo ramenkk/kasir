@@ -1,6 +1,34 @@
-    #filterModal {
-        display: none; /* Modal disembunyikan secara default */
-    }
-    #filterModal.active {
-        display: flex; /* Modal ditampilkan saat memiliki class 'active' */
-    }
+
+/* Modal */
+#filterModal {
+    display: none; /* Modal disembunyikan secara default */
+}
+#filterModal.active {
+    display: flex; /* Modal ditampilkan saat memiliki class 'active' */
+}
+
+/* Tombol Filter */
+.filter-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+    background-color: #f3f4f6;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+.filter-option:hover {
+    background-color: #e5e7eb;
+}
+
+/* Tombol Terapkan */
+#closeFilterModal {
+    background-color: #3b82f6;
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+#closeFilterModal:hover {
+    background-color: #2563eb;
+}
