@@ -112,6 +112,44 @@ document.addEventListener('DOMContentLoaded', function() {
         renderTableData(filteredOrders);
         addPrintButtons();
     }
+    // Fungsi untuk mencetak pesanan mingguan
+function printWeeklyOrders() {
+    const now = new Date();
+    const startOfWeek = new Date(now.setDate(now.getDate() - now.getDay()));
+    const endOfWeek = new Date(now.setDate(now.getDate() - now.getDay() + 6));
+
+    const filteredOrders = allOrders.filter(order => {
+        const orderDate = new Date(order.tanggal_pesanan.$date || order.tanggal_pesanan);
+        return orderDate >= startOfWeek && orderDate <= endOfWeek;
+    });
+
+    if (filteredOrders.length === 0) {
+        alert('Tidak ada pesanan untuk minggu ini.');
+        return;
+    }
+
+    const strukWindow = window.open('', '', 'height=600,width=800');
+    strukWindow.document.write('<html><head><title>Cetak Pesanan Mingguan</title></head><body>');
+    strukWindow.document.write('<h1>Laporan Pesanan Mingguan</h1>');
+    strukWindow.document.write(`<p><strong>Periode:</strong> ${startOfWeek.toLocaleDateString()} - ${endOfWeek.toLocaleDateString()}</p>`);
+
+    filteredOrders.forEach((pesanan, index) => {
+        strukWindow.document.write(`<h2>Pesanan #${index + 1}</h2>`);
+        strukWindow.document.write('<p><strong>Nama Pelanggan:</strong> ' + pesanan.nama_pelanggan + '</p>');
+        strukWindow.document.write('<p><strong>No Meja:</strong> ' + pesanan.nomor_meja + '</p>');
+        strukWindow.document.write('<p><strong>Daftar Menu:</strong> ' + pesanan.daftar_menu.map(item => `${item.nama_menu} (x${item.jumlah})`).join(', ') + '</p>');
+        strukWindow.document.write('<p><strong>Total Harga:</strong> Rp ' + pesanan.total_harga.toFixed(2) + '</p>');
+        strukWindow.document.write('<p><strong>Status Pesanan:</strong> ' + pesanan.status_pesanan + '</p>');
+        strukWindow.document.write('<p><strong>Tanggal Pesanan:</strong> ' + new Date(pesanan.tanggal_pesanan).toLocaleString() + '</p>');
+        strukWindow.document.write('<p><strong>Pembayaran:</strong> ' + pesanan.pembayaran + '</p>');
+        strukWindow.document.write('<p><strong>Catatan Pesanan:</strong> ' + pesanan.catatan_pesanan + '</p>');
+        strukWindow.document.write('<hr>'); // Garis pemisah antar pesanan
+    });
+
+    strukWindow.document.write('</body></html>');
+    strukWindow.document.close();
+    strukWindow.print(); // Buka jendela cetak
+}
     
     function filterMonthly() {
         const now = new Date();
@@ -127,10 +165,131 @@ document.addEventListener('DOMContentLoaded', function() {
         addPrintButtons(); // Pastikan ini dipanggil setelah renderTableData
     }
 
+    // Fungsi untuk mencetak pesanan bulanan
+function printMonthlyOrders() {
+    const now = new Date();
+    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+    const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+
+    const filteredOrders = allOrders.filter(order => {
+        const orderDate = new Date(order.tanggal_pesanan.$date || order.tanggal_pesanan);
+        return orderDate >= startOfMonth && orderDate <= endOfMonth;
+    });
+
+    if (filteredOrders.length === 0) {
+        alert('Tidak ada pesanan untuk bulan ini.');
+        return;
+    }
+
+    const strukWindow = window.open('', '', 'height=600,width=800');
+    strukWindow.document.write('<html><head><title>Cetak Pesanan Bulanan</title></head><body>');
+    strukWindow.document.write('<h1>Laporan Pesanan Bulanan</h1>');
+    strukWindow.document.write(`<p><strong>Periode:</strong> ${startOfMonth.toLocaleDateString()} - ${endOfMonth.toLocaleDateString()}</p>`);
+
+    filteredOrders.forEach((pesanan, index) => {
+        strukWindow.document.write(`<h2>Pesanan #${index + 1}</h2>`);
+        strukWindow.document.write('<p><strong>Nama Pelanggan:</strong> ' + pesanan.nama_pelanggan + '</p>');
+        strukWindow.document.write('<p><strong>No Meja:</strong> ' + pesanan.nomor_meja + '</p>');
+        strukWindow.document.write('<p><strong>Daftar Menu:</strong> ' + pesanan.daftar_menu.map(item => `${item.nama_menu} (x${item.jumlah})`).join(', ') + '</p>');
+        strukWindow.document.write('<p><strong>Total Harga:</strong> Rp ' + pesanan.total_harga.toFixed(2) + '</p>');
+        strukWindow.document.write('<p><strong>Status Pesanan:</strong> ' + pesanan.status_pesanan + '</p>');
+        strukWindow.document.write('<p><strong>Tanggal Pesanan:</strong> ' + new Date(pesanan.tanggal_pesanan).toLocaleString() + '</p>');
+        strukWindow.document.write('<p><strong>Pembayaran:</strong> ' + pesanan.pembayaran + '</p>');
+        strukWindow.document.write('<p><strong>Catatan Pesanan:</strong> ' + pesanan.catatan_pesanan + '</p>');
+        strukWindow.document.write('<hr>'); // Garis pemisah antar pesanan
+    });
+
+    strukWindow.document.write('</body></html>');
+    strukWindow.document.close();
+    strukWindow.print(); // Buka jendela cetak
+}
+
+    // Fungsi untuk mengurutkan data secara ascending (terlama ke terbaru)
+    function sortAscending() {
+        allOrders.sort((a, b) => new Date(a.tanggal_pesanan.$date || a.tanggal_pesanan) - new Date(b.tanggal_pesanan.$date || b.tanggal_pesanan));
+        renderTableData(allOrders);
+        addPrintButtons();
+    }
+
+    // Fungsi untuk mengurutkan data secara descending (terbaru ke terlama)
+    function sortDescending() {
+        allOrders.sort((a, b) => new Date(b.tanggal_pesanan.$date || b.tanggal_pesanan) - new Date(a.tanggal_pesanan.$date || a.tanggal_pesanan));
+        renderTableData(allOrders);
+        addPrintButtons();
+    }
+
+    // Fungsi untuk mencetak semua pesanan
+function printAllOrders() {
+    const strukWindow = window.open('', '', 'height=600,width=800');
+    strukWindow.document.write('<html><head><title>Cetak Semua Pesanan</title></head><body>');
+    strukWindow.document.write('<h1>Laporan Semua Pesanan</h1>');
+
+    // Loop melalui semua pesanan dan tambahkan ke dokumen
+    allOrders.forEach((pesanan, index) => {
+        strukWindow.document.write(`<h2>Pesanan #${index + 1}</h2>`);
+        strukWindow.document.write('<p><strong>Nama Pelanggan:</strong> ' + pesanan.nama_pelanggan + '</p>');
+        strukWindow.document.write('<p><strong>No Meja:</strong> ' + pesanan.nomor_meja + '</p>');
+        strukWindow.document.write('<p><strong>Daftar Menu:</strong> ' + pesanan.daftar_menu.map(item => `${item.nama_menu} (x${item.jumlah})`).join(', ') + '</p>');
+        strukWindow.document.write('<p><strong>Total Harga:</strong> Rp ' + pesanan.total_harga.toFixed(2) + '</p>');
+        strukWindow.document.write('<p><strong>Status Pesanan:</strong> ' + pesanan.status_pesanan + '</p>');
+        strukWindow.document.write('<p><strong>Tanggal Pesanan:</strong> ' + new Date(pesanan.tanggal_pesanan).toLocaleString() + '</p>');
+        strukWindow.document.write('<p><strong>Pembayaran:</strong> ' + pesanan.pembayaran + '</p>');
+        strukWindow.document.write('<p><strong>Catatan Pesanan:</strong> ' + pesanan.catatan_pesanan + '</p>');
+        strukWindow.document.write('<hr>'); // Garis pemisah antar pesanan
+    });
+
+    strukWindow.document.write('</body></html>');
+    strukWindow.document.close();
+    strukWindow.print(); // Buka jendela cetak
+}
+
+
+
     fetchData();
+
+
+    // Fungsi untuk membuka modal filter
+document.getElementById('openFilterModal').addEventListener('click', function() {
+    document.getElementById('filterModal').classList.add('active');
+});
+
+// Fungsi untuk menutup modal filter
+document.getElementById('closeFilterModal').addEventListener('click', function() {
+    document.getElementById('filterModal').classList.remove('active');
+});
+
+// Fungsi untuk filter mingguan
+document.getElementById('filterWeekly').addEventListener('click', function() {
+    filterWeekly();
+    document.getElementById('filterModal').classList.remove('active'); // Tutup modal setelah filter diaplikasikan
+});
+
+// Fungsi untuk filter bulanan
+document.getElementById('filterMonthly').addEventListener('click', function() {
+    filterMonthly();
+    document.getElementById('filterModal').classList.remove('active'); // Tutup modal setelah filter diaplikasikan
+});
+
+// Fungsi untuk mengurutkan terlama
+document.getElementById('sortAscending').addEventListener('click', function() {
+    sortAscending();
+    document.getElementById('filterModal').classList.remove('active'); // Tutup modal setelah pengurutan diaplikasikan
+});
+
+// Fungsi untuk mengurutkan terbaru
+document.getElementById('sortDescending').addEventListener('click', function() {
+    sortDescending();
+    document.getElementById('filterModal').classList.remove('active'); // Tutup modal setelah pengurutan diaplikasikan
+});
 
     // Menambahkan event listener untuk filter
     document.getElementById('searchInput').addEventListener('keyup', filterData);
-    document.getElementById('filterWeekly').addEventListener('click', filterWeekly);
-    document.getElementById('filterMonthly').addEventListener('click', filterMonthly);
+    document.getElementById('printAllOrders').addEventListener('click', printAllOrders);
+
+
+    
+    // Menambahkan event listener untuk tombol cetak mingguan dan bulanan
+document.getElementById('printWeeklyOrders').addEventListener('click', printWeeklyOrders);
+document.getElementById('printMonthlyOrders').addEventListener('click', printMonthlyOrders);
 });
+

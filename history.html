@@ -7,6 +7,7 @@
     <link href="https://cdn.skypack.dev/ol/ol.css" rel="stylesheet">
     <link rel="icon" href="assets/img/logo.png" type="image/x-icon">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"></script>
+    <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
       <style>
 
@@ -168,13 +169,55 @@
                             <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
                                 <div class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
                                     <div class="flex space-x-4 mb-4">
-                                        <button id="filterWeekly" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+                                        <!-- Tombol untuk membuka modal filter -->
+<button id="openFilterModal" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+    Filter
+</button>
+
+<!-- Modal Filter -->
+<div id="filterModal" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center">
+    <div class="bg-white p-6 rounded-lg w-96">
+        <h2 class="text-xl font-bold mb-4">Filter Pesanan</h2>
+        
+        <!-- Opsi Filter -->
+        <div class="space-y-4">
+            <button id="filterWeekly" class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+                Filter Mingguan
+            </button>
+            <button id="filterMonthly" class="w-full bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition">
+                Filter Bulanan
+            </button>
+            <button id="sortAscending" class="w-full bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition">
+                Urutkan Terlama
+            </button>
+            <button id="sortDescending" class="w-full bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 transition">
+                Urutkan Terbaru
+            </button>
+        </div>
+
+        <!-- Tombol Tutup Modal -->
+        <button id="closeFilterModal" class="mt-6 w-full bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition">
+            Tutup
+        </button>
+    </div>
+</div>
+
+
+    
+                            
+                                   
+                                        <button id="printWeeklyOrders" class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition">
                                             Cetak Mingguan
                                         </button>
-                                        <button id="filterMonthly" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition">
+                                        <button id="printMonthlyOrders" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 transition">
                                             Cetak Bulanan
                                         </button>
-                                    </div>
+                                        
+                                            <button id="printAllOrders" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition">
+                                                Cetak Semua Pesanan
+                                            </button>
+                                   
+                                        </div>
                                     
                                     <table id="dataDisplayTable" class="min-w-full">
                                         <thead class="bg-gray-50">

@@ -1,0 +1,6 @@
+    #filterModal {
+        display: none; /* Modal disembunyikan secara default */
+    }
+    #filterModal.active {
+        display: flex; /* Modal ditampilkan saat memiliki class 'active' */
+    }
