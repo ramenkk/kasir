@@ -43,6 +43,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const notificationButton = document.querySelector('[x-data] button');
     const notification = document.querySelector('#notification');
     const notificationCount = document.querySelector('#notificationCount'); // Ambil elemen jumlah notifikasi dari DOM
+    const notificationSound = document.getElementById('notificationSound'); // Ambil elemen audio
+
+    let previousOrderCount = 0; // Simpan jumlah pesanan sebelumnya
 
     // Fungsi untuk memperbarui UI notifikasi
     function updateNotificationUI(orders) {
@@ -50,6 +53,11 @@ document.addEventListener("DOMContentLoaded", function () {
         if (orders.length > 0) {
             notificationCount.textContent = orders.length;
             notificationCount.style.display = 'block'; // Tampilkan jumlah notifikasi
+
+            // Mainkan suara notifikasi jika ada pesanan baru yang masuk
+            if (orders.length > previousOrderCount && notificationSound) {
+                notificationSound.play(); // Mainkan suara sekali
+            }
 
             orders.forEach(order => {
                 const orderItem = document.createElement('a');
@@ -72,6 +80,9 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
             notificationCount.style.display = 'none'; // Sembunyikan jika tidak ada notifikasi baru
         }
+
+        // Perbarui jumlah pesanan sebelumnya
+        previousOrderCount = orders.length;
     }
 
     // Fungsi untuk mengambil pesanan baru
