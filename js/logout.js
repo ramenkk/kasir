@@ -22,7 +22,7 @@ async function logout() {
     }
 
     try {
-        const response = await fetch('https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/admin/logout', {
+        const response = await fetch('https://asia-southeast2-awangga.cloudfunctions.net/parkirgratis/admin/logout', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

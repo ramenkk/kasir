@@ -4,7 +4,7 @@ import {addCSS} from "https://cdn.jsdelivr.net/gh/jscroot/lib@0.0.9/element.js";
 addCSS("https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.css");
 
 document.addEventListener('DOMContentLoaded', function () {
-    const url = 'https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/data/bystatus?status=diproses';
+    const url = 'https://asia-southeast2-awangga.cloudfunctions.net/parkirgratis/data/bystatus?status=diproses';
 
     // Fungsi untuk mengambil data pesanan dan menampilkan di tabel
     function fetchData() {
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function () {
             cancelButtonText: 'Batal',
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/update/status?id=${pesananId}`, {
+                fetch(`https://asia-southeast2-awangga.cloudfunctions.net/parkirgratis/update/status?id=${pesananId}`, {
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json',

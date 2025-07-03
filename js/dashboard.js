@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         return;
     }
     try {
-      const response = await fetch('https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/admin/dashboard', {
+      const response = await fetch('https://asia-southeast2-awangga.cloudfunctions.net/parkirgratis/admin/dashboard', {
             method: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + token

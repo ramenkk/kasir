@@ -4,7 +4,7 @@ let allOrders = [];
 async function loadTableData() {
     try {
         // Fetch data dari API
-        const response = await fetch('https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/data/pesanan');
+        const response = await fetch('https://asia-southeast2-awangga.cloudfunctions.net/parkirgratis/data/pesanan');
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }

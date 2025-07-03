@@ -1,6 +1,6 @@
 async function fetchOrderStats() {
     try {
-        const response = await fetch("https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/data/pesanan");
+        const response = await fetch("https://asia-southeast2-awangga.cloudfunctions.net/parkirgratis/data/pesanan");
         const data = await response.json();
 
         console.log("Data Pesanan:", data); 
@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Fungsi untuk mengambil pesanan baru
     function checkNewOrders() {
-        fetch('https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/data/bystatus?status=baru')
+        fetch('https://asia-southeast2-awangga.cloudfunctions.net/parkirgratis/data/bystatus?status=baru')
             .then(response => response.json())
             .then(data => {
                 if (Array.isArray(data)) {

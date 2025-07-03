@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
 
-    const url = 'https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/data/bystatus?status=selesai';
+    const url = 'https://asia-southeast2-awangga.cloudfunctions.net/parkirgratis/data/bystatus?status=selesai';
     let allOrders = [];  // Untuk menyimpan data pesanan yang sudah dimuat
 
     function fetchData() {
